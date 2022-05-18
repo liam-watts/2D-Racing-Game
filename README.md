@@ -1,2 +1,2 @@
-# Python-Snake-Game
-A simple snake game in python
+# Racing Game
+A simple 2D racing game
