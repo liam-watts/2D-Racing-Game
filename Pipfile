@@ -5,8 +5,11 @@ name = "pypi"
 
 [packages]
 requests = "*"
+pygame = "*"
+numpy = "*"
 
 [dev-packages]
+pygame = "*"
 
 [requires]
 python_version = "3.10"
