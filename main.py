@@ -2,7 +2,7 @@
 
 import pygame 
 pygame.init()
-
+  
 FPS = 30 # frames per second setting
 fpsClock = pygame.time.Clock()
 
