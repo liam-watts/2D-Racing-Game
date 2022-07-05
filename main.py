@@ -1,52 +1,46 @@
-from turtle import Screen, Turtle
+#https://stackoverflow.com/questions/35001207/how-to-detect-collision-between-objects-in-pygame
 
-#parameters
-TURTLE_SIZE = 20
-boundary = 400
-speed = 5
+import pygame 
+pygame.init()
 
-# functions
-def go_left():
-    car.direction = 'left'
+FPS = 30 # frames per second setting
+fpsClock = pygame.time.Clock()
 
-def go_right():
-    car.direction = 'right'
+# set up the window
+DISPLAYSURF = pygame.display.set_mode((500, 500), 0, 32)
+pygame.display.set_caption('Mons Liam Car') #funky name
+WHITE = (255, 255, 255)
 
-# Setting up the screen
-screen = Screen()
-screen.setup(width=800, height=600)
-screen.title("Racing Cars")
-screen.bgcolor('white')
-screen.tracer(0)
+#loading the car
+car = pygame.image.load('2dcar.png')
+car = pygame.transform.scale(car,(40, 40))
 
-# Adding the car
-car = Turtle()
-car.shape('turtle')
-car.speed('fastest')
-car.color('blue')
-car.penup()
-car.sety(-250)
-car.direction = 'stop'
+#initial conditions
+car_x = 10
+car_y = 10
+dx, dy = 20, 20
 
-# Keyboard
-screen.onkeypress(go_left, 'Left')
-screen.onkeypress(go_right, 'Right')
-screen.listen()
+#second car
+car2 = pygame.image.load('2dcar.png')
+car2rect = car2.get_rect()
+car2rect.topleft=(0,0)
 
-while True:
-    x = car.xcor()
+while True: # the main game loop
+    for event in pygame.event.get(): #add some events to the game
+        DISPLAYSURF.fill(WHITE)
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            
 
-    if car.direction == 'left':
-        if x > TURTLE_SIZE - boundary:
-            x -= speed
-            car.setx(x)
-        else:
-            car.direction = 'stop'
-    elif car.direction == 'right':
-        if x < boundary- TURTLE_SIZE:
-            x += speed
-            car.setx(x)
-        else:
-            car.direction = 'stop'
+        if event.type == pygame.KEYDOWN: #moving directions with keys
+                if event.key == pygame.K_LEFT:
+                    car_x += -dx
+                elif event.key == pygame.K_RIGHT:
+                    car_x += dx
+                elif event.key == pygame.K_DOWN:
+                    car_y += dy
+                elif event.key == pygame.K_UP:
+                    car_y += -dy
 
-    screen.update()
+        DISPLAYSURF.blit(car, (car_x, car_y)) #display the cat if an "event" happens
+    pygame.display.update()
